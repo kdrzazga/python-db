@@ -6,6 +6,7 @@ class PersonTaxEtl:
     def __init__(self, postgres_dsn: str, parquet_path: str | None = None):
         self.postgres_dsn = postgres_dsn
         self.parquet_path = parquet_path
+        self.write_info()
 
     def extract(self, connection):
         persons = connection.execute("SELECT id, name, last_name, tax_id FROM person").fetchall()
@@ -54,7 +55,7 @@ class PersonTaxEtl:
             workspace.close()
 
     def write_info(self):
-        lines = (30*"\n", "This application does the ETL:", "1. EXTRACT - It reads data from PostgreSQL DB"
+        lines = (3*"\n", "This application does the ETL:", "1. EXTRACT - It reads data from PostgreSQL DB"
                  , "2. TRANSFORM - it re-works data and stores them in in-memory DB DUCK"
                  , "3. LOAD - It creates a report based on those data, and stores them back in PostgreSQL, but in REPORT"
                    + " table.")

@@ -20,7 +20,7 @@ from simple_etl import PersonTaxEtl
 pytestmark = pytest.mark.integration
 
 DEFAULT_ADMIN_DSN = "host=localhost port=5432 dbname=postgres user=postgres"
-SEED_SCRIPT = Path(__file__).with_name("sql") / "person.sql"
+SEED_SCRIPT = Path(__file__).resolve().parent.parent / "sql" / "person.sql"
 
 
 @pytest.fixture(scope="session")
