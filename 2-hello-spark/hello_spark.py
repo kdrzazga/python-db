@@ -3,6 +3,8 @@ import sys
 
 from pyspark.sql import SparkSession
 
+from data_frame_factory import DataFrameFactory
+
 # On Windows, make Spark's Python workers use the same interpreter as the driver
 os.environ["PYSPARK_PYTHON"] = sys.executable
 os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
@@ -15,14 +17,20 @@ spark = (
 )
 spark.sparkContext.setLogLevel("WARN")
 
-# 1) The literal "Hello World": a one-row DataFrame
-greeting = spark.createDataFrame([("Hello, Spark!",)], ["message"])
+# 1) The  DataFrame
+rows, column_names = DataFrameFactory().create_hello_df()
+greeting = spark.createDataFrame(rows, column_names)
 
 print("A DataFrame is a table: rows and named, typed columns, like a SQL table, an Excel sheet or a pandas DataFrame. "
       +"The difference is that a Spark DataFrame can be split into partitions and processed in parallel, across your CPU "
       +"cores in local mode or across machines on a cluster.")
+print("Check SparkUI at http://localhost:4040")
 
 greeting.show()
+
+print("\n\nScema for GREETINGS looks like that:")
+greeting.printSchema()
+
 
 # 2) The classic Spark hello world: word count
 lines = [
