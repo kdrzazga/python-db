@@ -17,6 +17,11 @@ spark.sparkContext.setLogLevel("WARN")
 
 # 1) The literal "Hello World": a one-row DataFrame
 greeting = spark.createDataFrame([("Hello, Spark!",)], ["message"])
+
+print("A DataFrame is a table: rows and named, typed columns, like a SQL table, an Excel sheet or a pandas DataFrame. "
+      +"The difference is that a Spark DataFrame can be split into partitions and processed in parallel, across your CPU "
+      +"cores in local mode or across machines on a cluster.")
+
 greeting.show()
 
 # 2) The classic Spark hello world: word count
