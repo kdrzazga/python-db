@@ -30,7 +30,8 @@ class DataFrameFactory:
 			("Democratic Republic of the Congo", "Africa", 113, 79),
 			("Vietnam", "Asia", 102, 506),
 			("Iran", "Asia", 92, 357),
-			("Turkey", "Europe/Asia", 88, 1440),
+			("Turkey", "Europe", 88, 1440),
+			("Turkey", "Asia", 88, 1440),
 			("Germany", "Europe", 84, 4740),
 			("Thailand", "Asia", 72, 559),
 			("Poland", "Europe", 38, 915),
@@ -39,3 +40,23 @@ class DataFrameFactory:
 		)
 
 		return countries
+
+	@staticmethod
+	def create_companies_df() -> tuple:
+
+		companies = ([
+			(1, "Apple", "United States", "Technology"),
+			(2, "Microsoft", "United States", "Technology"),
+			(3, "Saudi Aramco", "Saudi Arabia", "Energy"),
+			(4, "Shell", "United Kingdom", "Energy"),
+			(5, "Toyota", "Japan", "Automotive"),
+			(6, "Volkswagen", "Germany", "Automotive"),
+			(7, "Samsung Electronics", "South Korea", "Technology"),
+			(8, "TSMC", "Taiwan", "Semiconductors"),
+			(9, "Nestle", "Switzerland", "Food"),
+			(10, "LVMH", "France", "Luxury Goods"),
+			],
+			["company_id", "name", "country", "industry"]
+		)
+
+		return companies

@@ -58,7 +58,7 @@ def process_countries_group_by_wealth(countries, rich_threshold=20.0, middle_thr
     )
 
     # The same two queries in plain SQL
-    countries_with_wealth.createOrReplaceTempView("countries")
+    countries_with_wealth.createOrReplaceTempView("countries_with_wealth")
 
     print("SQL: GROUP BY wealth")
     spark.sql("""
@@ -66,7 +66,7 @@ def process_countries_group_by_wealth(countries, rich_threshold=20.0, middle_thr
                COUNT(*)                         AS countries,
                SUM(population)                  AS total_population_m,
                ROUND(AVG(gdp_per_capita_k), 1)  AS avg_gdp_per_capita_k
-        FROM countries
+        FROM countries_with_wealth
         GROUP BY wealth
         ORDER BY avg_gdp_per_capita_k DESC
     """).show()
@@ -74,8 +74,7 @@ def process_countries_group_by_wealth(countries, rich_threshold=20.0, middle_thr
     print("SQL: GROUP BY continent, wealth HAVING COUNT(*) >= 2")
     spark.sql("""
         SELECT continent, wealth, COUNT(*) AS countries
-        FROM countries
-        WHERE continent <> 'Europe/Asia'
+        FROM countries_with_wealth
         GROUP BY continent, wealth
         HAVING COUNT(*) >= 2
         ORDER BY continent, wealth
