@@ -17,7 +17,7 @@ def process_industries_outside_us(companies):
     print("Industries with at least two companies based outside the US:")
     (
         companies
-        .filter(F.col("country") != "United States")                     # WHERE
+        .filter(F.col("country") != "United States")                      # WHERE
         .groupBy("industry")                                              # GROUP BY
         .agg(
             F.count("*").alias("companies"),
